@@ -23,6 +23,7 @@ const emptyForm = {
   category: 'Astrology',
   tags: '',
   published: true,
+  hideLikes: false,
 };
 
 const quillModules = {
@@ -79,6 +80,7 @@ const BlogEditor = () => {
           category: cat,
           tags: (b.tags || []).join(', '),
           published: b.published !== undefined ? b.published : true,
+          hideLikes: b.hideLikes !== undefined ? b.hideLikes : false,
         });
 
         if (b.videoUrl && (b.videoUrl.includes('youtube.com') || b.videoUrl.includes('youtu.be'))) {
@@ -90,7 +92,7 @@ const BlogEditor = () => {
   }, [id, isNew]);
 
   const handleChange = (field) => (e) => {
-    const value = field === 'published' ? e.target.checked : e.target.value;
+    const value = (field === 'published' || field === 'hideLikes') ? e.target.checked : e.target.value;
     setForm((prev) => ({ ...prev, [field]: value }));
   };
 
@@ -511,6 +513,25 @@ const BlogEditor = () => {
                   className="sr-only peer"
                 />
                 <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-emerald-600"></div>
+              </label>
+            </div>
+
+            {/* Hide Likes Toggle */}
+            <div className="p-4 rounded-2xl bg-rose-50 border border-rose-200 flex items-center justify-between">
+              <div>
+                <p className="text-sm font-semibold text-slate-900">Hide Like Count</p>
+                <p className="text-xs text-slate-500">
+                  When enabled, the public like count is hidden. Readers can still like the post — only the number is hidden.
+                </p>
+              </div>
+              <label className="relative inline-flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={form.hideLikes}
+                  onChange={handleChange('hideLikes')}
+                  className="sr-only peer"
+                />
+                <div className="w-11 h-6 bg-slate-200 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-rose-500"></div>
               </label>
             </div>
 

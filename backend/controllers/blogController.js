@@ -115,7 +115,7 @@ const getBlogByIdAdmin = async (req, res, next) => {
 // @access  Private
 const createBlog = async (req, res, next) => {
   try {
-    const { title, excerpt, content, coverImage, videoUrl, mediaType, category, tags, published, author } = req.body;
+    const { title, excerpt, content, coverImage, videoUrl, mediaType, category, tags, published, author, hideLikes } = req.body;
 
     if (!title || !excerpt || !content) {
       return res.status(400).json({ message: 'Title, excerpt and content are required' });
@@ -135,6 +135,7 @@ const createBlog = async (req, res, next) => {
       author: author || 'Acharya Pragati',
       tags: Array.isArray(tags) ? tags : (tags || '').split(',').map((t) => t.trim()).filter(Boolean),
       published: published !== undefined ? published : true,
+      hideLikes: hideLikes !== undefined ? Boolean(hideLikes) : false,
     });
 
     res.status(201).json(blog);
@@ -153,7 +154,7 @@ const updateBlog = async (req, res, next) => {
       return res.status(404).json({ message: 'Blog post not found' });
     }
 
-    const { title, excerpt, content, coverImage, videoUrl, mediaType, category, tags, published, author } = req.body;
+    const { title, excerpt, content, coverImage, videoUrl, mediaType, category, tags, published, author, hideLikes } = req.body;
 
     if (title && title !== blog.title) {
       blog.slug = await buildUniqueSlug(title, blog._id);
@@ -168,6 +169,7 @@ const updateBlog = async (req, res, next) => {
     if (category !== undefined) blog.category = category;
     if (author !== undefined) blog.author = author;
     if (published !== undefined) blog.published = published;
+    if (hideLikes !== undefined) blog.hideLikes = Boolean(hideLikes);
     if (tags !== undefined) {
       blog.tags = Array.isArray(tags) ? tags : tags.split(',').map((t) => t.trim()).filter(Boolean);
     }

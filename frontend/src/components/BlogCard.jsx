@@ -354,7 +354,7 @@ const BlogCard = ({ blog }) => {
                   filled={liked}
                   color={liked ? '#E11D48' : 'currentColor'}
                 />
-                <span>{likesCount}</span>
+                {!blog.hideLikes && <span>{likesCount}</span>}
               </button>
 
               {/* Comment Count */}

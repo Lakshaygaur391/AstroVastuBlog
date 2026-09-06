@@ -305,15 +305,19 @@ const BlogPost = () => {
             >
               <HeartIcon className="w-5 h-5" filled={liked} color={liked ? '#FFFFFF' : '#E11D48'} />
               <span>{liked ? 'Liked' : 'Like Post'}</span>
-              <span className="px-2 py-0.5 rounded-full text-xs bg-black/10">
-                {likesCount}
-              </span>
+              {!blog.hideLikes && (
+                <span className="px-2 py-0.5 rounded-full text-xs bg-black/10">
+                  {likesCount}
+                </span>
+              )}
             </button>
-            <p className="text-xs text-slate-500 hidden sm:block">
-              {likesCount === 0
-                ? 'Be the first to appreciate this article'
-                : `${likesCount} reader${likesCount > 1 ? 's' : ''} found this valuable`}
-            </p>
+            {!blog.hideLikes && (
+              <p className="text-xs text-slate-500 hidden sm:block">
+                {likesCount === 0
+                  ? 'Be the first to appreciate this article'
+                  : `${likesCount} reader${likesCount > 1 ? 's' : ''} found this valuable`}
+              </p>
+            )}
           </div>
 
           <a

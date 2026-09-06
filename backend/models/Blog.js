@@ -24,6 +24,7 @@ const blogSchema = new mongoose.Schema(
     published: { type: Boolean, default: true },
     views: { type: Number, default: 0 },
     likes: { type: Number, default: 0 },
+    hideLikes: { type: Boolean, default: false },
     comments: [commentSchema],
   },
   { timestamps: true }
