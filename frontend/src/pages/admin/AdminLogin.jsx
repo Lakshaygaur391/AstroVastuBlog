@@ -21,7 +21,11 @@ const AdminLogin = () => {
       await login(email, password);
       navigate('/admin/dashboard');
     } catch (err) {
-      setError(err.response?.data?.message || 'Invalid credentials. Please verify and try again.');
+      if (!err.response) {
+        setError('Cannot reach server. If the backend was recently deployed on Render free tier, it may be waking up (wait ~30s) or check VITE_API_URL.');
+      } else {
+        setError(err.response?.data?.message || 'Invalid credentials. Please verify and try again.');
+      }
     } finally {
       setSubmitting(false);
     }
