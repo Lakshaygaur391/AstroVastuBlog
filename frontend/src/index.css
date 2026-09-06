@@ -1,0 +1,303 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ───────────────────────────────────────
+   Base & Reset
+─────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #F8FAFC;
+  color: #0F172A;
+  font-family: 'Inter', sans-serif;
+  line-height: 1.7;
+}
+
+::selection {
+  background-color: #0B192C;
+  color: #FFFFFF;
+}
+
+/* ───────────────────────────────────────
+   Scrollbar
+─────────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 7px;
+}
+::-webkit-scrollbar-track {
+  background: #F1F5F9;
+}
+::-webkit-scrollbar-thumb {
+  background: #CBD5E1;
+  border-radius: 99px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #0B192C;
+}
+
+/* ───────────────────────────────────────
+   Typography Utilities
+─────────────────────────────────────── */
+.font-display {
+  font-family: 'Playfair Display', serif;
+}
+
+h1, h2, h3, h4 {
+  font-family: 'Playfair Display', serif;
+  font-weight: 600;
+  line-height: 1.3;
+  color: #0F172A;
+}
+
+/* ───────────────────────────────────────
+   Animations
+─────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-8px); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+.animate-slide-up {
+  animation: slideUp 0.4s ease-out forwards;
+}
+.animate-float {
+  animation: float 5s ease-in-out infinite;
+}
+
+/* ───────────────────────────────────────
+   Card & Surface Utilities
+─────────────────────────────────────── */
+.card-warm {
+  background: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  border-radius: 14px;
+  box-shadow: 0 1px 3px rgba(15, 23, 42, 0.04), 0 4px 16px rgba(15, 23, 42, 0.04);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-warm:hover {
+  box-shadow: 0 8px 28px rgba(11, 25, 44, 0.10);
+  border-color: #CBD5E1;
+  transform: translateY(-2px);
+}
+
+.section-divider {
+  border: none;
+  border-top: 1px solid #E2E8F0;
+  margin: 0;
+}
+
+/* ───────────────────────────────────────
+   Button Utilities (Navy Blue & White)
+─────────────────────────────────────── */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.6rem;
+  background: linear-gradient(135deg, #0B192C 0%, #1E3E62 100%);
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 9px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  letter-spacing: 0.01em;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(11, 25, 44, 0.2);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1E3E62 0%, #205295 100%);
+  box-shadow: 0 6px 20px rgba(11, 25, 44, 0.28);
+  transform: translateY(-1px);
+}
+
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.6rem;
+  background: #FFFFFF;
+  color: #0B192C;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 9px;
+  border: 1.5px solid #CBD5E1;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-secondary:hover {
+  background: #F8FAFC;
+  border-color: #0B192C;
+  color: #0B192C;
+  transform: translateY(-1px);
+}
+
+.btn-gold {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.6rem;
+  background: linear-gradient(135deg, #C5A059 0%, #D8B572 100%);
+  color: #FFFFFF;
+  font-weight: 600;
+  font-size: 0.9rem;
+  border-radius: 9px;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-decoration: none;
+  box-shadow: 0 2px 10px rgba(197, 160, 89, 0.3);
+}
+
+.btn-gold:hover {
+  background: linear-gradient(135deg, #9F7C32 0%, #C5A059 100%);
+  transform: translateY(-1px);
+}
+
+/* ───────────────────────────────────────
+   Badge/Pill
+─────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.25rem 0.8rem;
+  border-radius: 99px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.badge-navy {
+  background: #E8EEF5;
+  color: #0B192C;
+  border: 1px solid #CBDCEE;
+}
+
+.badge-gold {
+  background: #FBF8F2;
+  color: #9F7C32;
+  border: 1px solid #EADBBE;
+}
+
+/* ───────────────────────────────────────
+   Modal Backdrop
+─────────────────────────────────────── */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(11, 25, 44, 0.65);
+  backdrop-filter: blur(5px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+
+/* ───────────────────────────────────────
+   Form Styles
+─────────────────────────────────────── */
+.form-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1.5px solid #E2E8F0;
+  border-radius: 8px;
+  background: #FFFFFF;
+  color: #0F172A;
+  font-size: 0.95rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  outline: none;
+}
+
+.form-input:focus {
+  border-color: #0B192C;
+  box-shadow: 0 0 0 3px rgba(11, 25, 44, 0.1);
+}
+
+.form-input::placeholder {
+  color: #94A3B8;
+}
+
+.form-label {
+  display: block;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.01em;
+}
+
+/* ───────────────────────────────────────
+   Quill Editor Theming (Admin)
+─────────────────────────────────────── */
+.ql-toolbar.ql-snow {
+  border-color: #CBD5E1 !important;
+  border-radius: 8px 8px 0 0;
+  background: #F8FAFC;
+}
+.ql-container.ql-snow {
+  border-color: #CBD5E1 !important;
+  border-radius: 0 0 8px 8px;
+  font-family: 'Inter', sans-serif;
+  min-height: 280px;
+  font-size: 1rem;
+  background: #FFFFFF;
+}
+
+/* ───────────────────────────────────────
+   Hero Gradient Backgrounds
+─────────────────────────────────────── */
+.hero-gradient {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F4F7FB 65%, #E8EEF5 100%);
+}
+
+.category-hero-astrology {
+  background: linear-gradient(135deg, #F8FAFC 0%, #F1F5F9 50%, #E2E8F0 100%);
+}
+
+.category-hero-numerology {
+  background: linear-gradient(135deg, #F0F4F8 0%, #E8EEF5 50%, #D8E4F0 100%);
+}
+
+.category-hero-vastu {
+  background: linear-gradient(135deg, #F4F8F6 0%, #E6F2EC 50%, #D4EAE0 100%);
+}
+
+.category-hero-rashifal {
+  background: linear-gradient(135deg, #FAF6F4 0%, #F5ECE8 50%, #ECE0D8 100%);
+}
+
+.category-hero-seva {
+  background: linear-gradient(135deg, #FAF4F8 0%, #F5E8F0 50%, #ECD8E6 100%);
+}
+
+.category-hero-spirituality {
+  background: linear-gradient(135deg, #F6F4FA 0%, #EDE8F5 50%, #E0D8EC 100%);
+}
