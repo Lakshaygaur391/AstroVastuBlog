@@ -324,146 +324,119 @@ const AdminDashboard = () => {
                       categoryBadgeStyles[blog.category] || 'bg-slate-100 text-slate-700 border-slate-200';
 
                     return (
-                      <tr key={blog._id} className="hover:bg-slate-50/70 transition-colors group">
-                        
-                        {/* Title & Excerpt */}
-                        <td className="px-6 py-4 max-w-md">
-                          <p className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-1">
-                            {blog.title}
-                          </p>
-                          {blog.excerpt && (
-                            <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">
-                              {blog.excerpt}
+                      <React.Fragment key={blog._id}>
+                        <tr className="hover:bg-slate-50/70 transition-colors group">
+                          {/* Title & Excerpt */}
+                          <td className="px-6 py-4 max-w-md">
+                            <p className="font-semibold text-slate-900 group-hover:text-blue-600 transition-colors line-clamp-1">
+                              {blog.title}
                             </p>
-                          )}
-                        </td>
+                            {blog.excerpt && (
+                              <p className="text-xs text-slate-500 line-clamp-1 mt-0.5">{blog.excerpt}</p>
+                            )}
+                          </td>
 
-                        {/* Category */}
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span
-                            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${badgeClass}`}
-                          >
-                            {blog.category || 'General'}
-                          </span>
-                        </td>
+                          {/* Category */}
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-semibold border ${badgeClass}`}>
+                              {blog.category || 'General'}
+                            </span>
+                          </td>
 
-                        {/* Date */}
-                        <td className="px-6 py-4 whitespace-nowrap text-xs text-slate-500">
-                          {formatDate(blog.createdAt)}
-                        </td>
+                          {/* Date */}
+                          <td className="px-6 py-4 whitespace-nowrap text-xs text-slate-500">
+                            {formatDate(blog.createdAt)}
+                          </td>
 
-                        {/* Status */}
-                        <td className="px-6 py-4 whitespace-nowrap">
-                          <span
-                            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${
-                              blog.published
-                                ? 'bg-emerald-50 text-emerald-700 border border-emerald-200'
-                                : 'bg-slate-100 text-slate-600 border border-slate-200'
-                            }`}
-                          >
-                            <span
-                              className={`w-1.5 h-1.5 rounded-full ${
-                                blog.published ? 'bg-emerald-500' : 'bg-slate-400'
-                              }`}
-                            />
-                            {blog.published ? 'Published' : 'Draft'}
-                          </span>
-                        </td>
+                          {/* Status */}
+                          <td className="px-6 py-4 whitespace-nowrap">
+                            <span className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold ${blog.published ? 'bg-emerald-50 text-emerald-700 border border-emerald-200' : 'bg-slate-100 text-slate-600 border border-slate-200'}`}>
+                              <span className={`w-1.5 h-1.5 rounded-full ${blog.published ? 'bg-emerald-500' : 'bg-slate-400'}`} />
+                              {blog.published ? 'Published' : 'Draft'}
+                            </span>
+                          </td>
 
-                        {/* Comment Count Column */}
-                        <td className="px-6 py-4 text-center whitespace-nowrap">
-                          <button
-                            type="button"
-                            onClick={() => setExpandedComments(expandedComments === blog._id ? null : blog._id)}
-                            className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border transition-colors ${
-                              expandedComments === blog._id
-                                ? 'bg-navy-900 bg-[#0B192C] text-white border-[#0B192C]'
-                                : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
-                            }`}
-                            title="Manage comments"
-                          >
-                            <MessageSquareIcon className="w-3 h-3" />
-                            <span>{(blog.comments || []).length}</span>
-                            <ChevronDownIcon
-                              className={`w-3 h-3 transition-transform ${expandedComments === blog._id ? 'rotate-180' : ''}`}
-                            />
-                          </button>
-                        </td>
-
-                        {/* Actions */}
-                        <td className="px-6 py-4 text-right whitespace-nowrap">
-                          <div className="inline-flex items-center gap-2">
-                            <Link
-                              to={`/admin/editor/${blog._id}`}
-                              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors"
-                            >
-                              <EditIcon className="w-3.5 h-3.5" />
-                              <span>Edit</span>
-                            </Link>
-
+                          {/* Comment Count */}
+                          <td className="px-6 py-4 text-center whitespace-nowrap">
                             <button
-                              onClick={() => setDeleteModal({ open: true, id: blog._id, title: blog.title })}
-                              className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-rose-600 bg-rose-50 hover:bg-rose-100 rounded-lg transition-colors"
+                              type="button"
+                              onClick={() => setExpandedComments(expandedComments === blog._id ? null : blog._id)}
+                              className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-semibold border transition-colors ${expandedComments === blog._id ? 'bg-[#0B192C] text-white border-[#0B192C]' : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'}`}
+                              title="Manage comments"
                             >
-                              <TrashIcon className="w-3.5 h-3.5" />
-                              <span>Delete</span>
+                              <MessageSquareIcon className="w-3 h-3" />
+                              <span>{(blog.comments || []).length}</span>
+                              <ChevronDownIcon className={`w-3 h-3 transition-transform ${expandedComments === blog._id ? 'rotate-180' : ''}`} />
                             </button>
-                          </div>
-                        </td>
-                      </tr>
+                          </td>
 
-                      {/* ── Expandable Comments Panel ── */}
-                      {expandedComments === blog._id && (
-                        <tr key={`comments-${blog._id}`}>
-                          <td colSpan={6} className="px-6 pb-5">
-                            <div className="bg-slate-50 rounded-2xl border border-slate-200 p-4">
-                              <div className="flex items-center justify-between mb-3">
-                                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1.5">
-                                  <MessageSquareIcon className="w-3.5 h-3.5" />
-                                  Comments on &ldquo;{blog.title}&rdquo;
-                                </h4>
-                                <span className="text-xs text-slate-400">{(blog.comments || []).length} total</span>
-                              </div>
-
-                              {(blog.comments || []).length === 0 ? (
-                                <p className="text-xs text-slate-400 italic py-2">No comments on this post yet.</p>
-                              ) : (
-                                <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
-                                  {(blog.comments || []).map((comment) => (
-                                    <div
-                                      key={comment._id}
-                                      className="flex items-start justify-between gap-3 bg-white rounded-xl border border-slate-200 p-3"
-                                    >
-                                      <div className="flex-1 min-w-0">
-                                        <div className="flex items-center gap-2 mb-1">
-                                          <span className="text-xs font-semibold text-slate-800">{comment.name}</span>
-                                          {comment.email && (
-                                            <span className="text-xs text-slate-400">{comment.email}</span>
-                                          )}
-                                          <span className="text-xs text-slate-400 ml-auto shrink-0">
-                                            {new Date(comment.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
-                                          </span>
-                                        </div>
-                                        <p className="text-xs text-slate-600 line-clamp-2">{comment.content}</p>
-                                      </div>
-                                      <button
-                                        type="button"
-                                        onClick={() => handleDeleteComment(blog._id, comment._id)}
-                                        disabled={deletingComment === comment._id}
-                                        className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium text-rose-600 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-colors disabled:opacity-40"
-                                        title="Delete this comment"
-                                      >
-                                        <TrashIcon className="w-3 h-3" />
-                                        <span>{deletingComment === comment._id ? '…' : 'Delete'}</span>
-                                      </button>
-                                    </div>
-                                  ))}
-                                </div>
-                              )}
+                          {/* Actions */}
+                          <td className="px-6 py-4 text-right whitespace-nowrap">
+                            <div className="inline-flex items-center gap-2">
+                              <Link
+                                to={`/admin/editor/${blog._id}`}
+                                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-slate-700 bg-slate-100 hover:bg-slate-200 rounded-lg transition-colors"
+                              >
+                                <EditIcon className="w-3.5 h-3.5" />
+                                <span>Edit</span>
+                              </Link>
+                              <button
+                                onClick={() => setDeleteModal({ open: true, id: blog._id, title: blog.title })}
+                                className="inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-rose-600 bg-rose-50 hover:bg-rose-100 rounded-lg transition-colors"
+                              >
+                                <TrashIcon className="w-3.5 h-3.5" />
+                                <span>Delete</span>
+                              </button>
                             </div>
                           </td>
                         </tr>
-                      )}
+
+                        {/* Expandable Comments Panel */}
+                        {expandedComments === blog._id && (
+                          <tr>
+                            <td colSpan={6} className="px-6 pb-5 bg-slate-50/50">
+                              <div className="bg-white rounded-2xl border border-slate-200 p-4 mt-1 shadow-sm">
+                                <div className="flex items-center justify-between mb-3">
+                                  <h4 className="text-xs font-bold uppercase tracking-wider text-slate-600 flex items-center gap-1.5">
+                                    <MessageSquareIcon className="w-3.5 h-3.5" />
+                                    Comments on &ldquo;{blog.title}&rdquo;
+                                  </h4>
+                                  <span className="text-xs text-slate-400">{(blog.comments || []).length} total</span>
+                                </div>
+                                {(blog.comments || []).length === 0 ? (
+                                  <p className="text-xs text-slate-400 italic py-2">No comments on this post yet.</p>
+                                ) : (
+                                  <div className="space-y-2 max-h-64 overflow-y-auto pr-1">
+                                    {(blog.comments || []).map((comment) => (
+                                      <div key={comment._id} className="flex items-start justify-between gap-3 bg-slate-50 rounded-xl border border-slate-200 p-3">
+                                        <div className="flex-1 min-w-0">
+                                          <div className="flex items-center gap-2 mb-1 flex-wrap">
+                                            <span className="text-xs font-semibold text-slate-800">{comment.name}</span>
+                                            {comment.email && <span className="text-xs text-slate-400">{comment.email}</span>}
+                                            <span className="text-xs text-slate-400 ml-auto shrink-0">
+                                              {new Date(comment.createdAt).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
+                                            </span>
+                                          </div>
+                                          <p className="text-xs text-slate-600 line-clamp-2">{comment.content}</p>
+                                        </div>
+                                        <button
+                                          type="button"
+                                          onClick={() => handleDeleteComment(blog._id, comment._id)}
+                                          disabled={deletingComment === comment._id}
+                                          className="shrink-0 inline-flex items-center gap-1 px-2.5 py-1 rounded-lg text-xs font-medium text-rose-600 bg-rose-50 hover:bg-rose-100 border border-rose-200 transition-colors disabled:opacity-40"
+                                        >
+                                          <TrashIcon className="w-3 h-3" />
+                                          <span>{deletingComment === comment._id ? '…' : 'Delete'}</span>
+                                        </button>
+                                      </div>
+                                    ))}
+                                  </div>
+                                )}
+                              </div>
+                            </td>
+                          </tr>
+                        )}
+                      </React.Fragment>
                     );
                   })}
                 </tbody>

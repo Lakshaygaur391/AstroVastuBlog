@@ -264,4 +264,3 @@ export const AllPostsIcon = ({ className = 'w-5 h-5', color = 'currentColor' }) 
     <rect x="3" y="14" width="7" height="7" rx="2" />
   </svg>
 );
-
