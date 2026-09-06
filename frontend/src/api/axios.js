@@ -11,9 +11,18 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
-  const token = localStorage.getItem('astro_admin_token');
-  if (token) {
-    config.headers.Authorization = `Bearer ${token}`;
+  if (!config.headers.Authorization) {
+    const adminToken = localStorage.getItem('astro_admin_token');
+    const userToken = localStorage.getItem('astro_user_token');
+
+    // For user-specific endpoints, prioritize user token
+    if (config.url && config.url.includes('/users/') && userToken) {
+      config.headers.Authorization = `Bearer ${userToken}`;
+    } else if (adminToken) {
+      config.headers.Authorization = `Bearer ${adminToken}`;
+    } else if (userToken) {
+      config.headers.Authorization = `Bearer ${userToken}`;
+    }
   }
   return config;
 });

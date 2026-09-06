@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import api from '../api/axios';
 import { useUserAuth } from '../context/UserAuthContext';
 import SignupModal from '../components/SignupModal';
 import {
@@ -72,31 +73,41 @@ const services = [
 ];
 
 const BookConsultation = () => {
-  const { user } = useUserAuth();
+  const { user, userLoading } = useUserAuth();
   const [showModal, setShowModal] = useState(false);
   const [selectedService, setSelectedService] = useState('Complete Life Guidance');
   const [bookingForm, setBookingForm] = useState({ name: '', email: '', phone: '', date: '', time: '', message: '' });
   const [bookingSubmitted, setBookingSubmitted] = useState(false);
   const [bookingLoading, setBookingLoading] = useState(false);
-
-  // Show modal if user is not logged in when entering page
-  useEffect(() => {
-    if (!user) {
-      setShowModal(true);
-    }
-  }, [user]);
+  const [bookingError, setBookingError] = useState('');
 
   const handleBookingChange = (e) =>
     setBookingForm((f) => ({ ...f, [e.target.name]: e.target.value }));
 
-  const handleBookingSubmit = (e) => {
+  const handleBookingSubmit = async (e) => {
     e.preventDefault();
-    if (!user) { setShowModal(true); return; }
+    if (!user) {
+      setShowModal(true);
+      return;
+    }
     setBookingLoading(true);
-    setTimeout(() => {
+    setBookingError('');
+    try {
+      await api.post('/consultations', {
+        name: user ? user.name : bookingForm.name,
+        email: user ? user.email : bookingForm.email,
+        phone: bookingForm.phone || (user ? user.phone : ''),
+        service: selectedService,
+        date: bookingForm.date,
+        time: bookingForm.time,
+        message: bookingForm.message,
+      });
       setBookingSubmitted(true);
+    } catch (err) {
+      setBookingError(err?.response?.data?.message || 'Failed to submit consultation booking. Please try again.');
+    } finally {
       setBookingLoading(false);
-    }, 1200);
+    }
   };
 
   const tomorrow = new Date();
@@ -275,6 +286,11 @@ const BookConsultation = () => {
               )}
 
               <form onSubmit={handleBookingSubmit} id="booking-form" className="space-y-4">
+                {bookingError && (
+                  <div className="rounded-xl px-4 py-3 text-xs font-semibold bg-rose-50 border border-rose-200 text-rose-700 animate-fade-in">
+                    {bookingError}
+                  </div>
+                )}
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="form-label" htmlFor="book-name">Full Name *</label>

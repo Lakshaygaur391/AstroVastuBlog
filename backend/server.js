@@ -9,6 +9,7 @@ const authRoutes = require('./routes/authRoutes');
 const blogRoutes = require('./routes/blogRoutes');
 const userRoutes = require('./routes/userRoutes');
 const uploadRoutes = require('./routes/uploadRoutes');
+const consultationRoutes = require('./routes/consultationRoutes');
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
 
 connectDB();
@@ -48,12 +49,14 @@ app.use('/api/auth', authRoutes);
 app.use('/api/blogs', blogRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/upload', uploadRoutes);
+app.use('/api/consultations', consultationRoutes);
 
 // Fallback aliases in case /api was omitted in client VITE_API_URL
 app.use('/auth', authRoutes);
 app.use('/blogs', blogRoutes);
 app.use('/users', userRoutes);
 app.use('/upload', uploadRoutes);
+app.use('/consultations', consultationRoutes);
 
 app.use(notFound);
 app.use(errorHandler);

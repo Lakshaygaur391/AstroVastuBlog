@@ -264,3 +264,19 @@ export const AllPostsIcon = ({ className = 'w-5 h-5', color = 'currentColor' }) 
     <rect x="3" y="14" width="7" height="7" rx="2" />
   </svg>
 );
+
+export const RefreshIcon = ({ className = 'w-4 h-4', color = 'currentColor' }) => (
+  <svg viewBox="0 0 24 24" fill="none" className={className} stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="23 4 23 10 17 10" />
+    <polyline points="1 20 1 14 7 14" />
+    <path d="M3.51 9a9 9 0 0114.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0020.49 15" />
+  </svg>
+);
+
+export const ClockIcon = ({ className = 'w-4 h-4', color = 'currentColor' }) => (
+  <svg viewBox="0 0 24 24" fill="none" className={className} stroke={color} strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+    <circle cx="12" cy="12" r="10" />
+    <polyline points="12 6 12 12 16 14" />
+  </svg>
+);
+
